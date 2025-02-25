@@ -7,21 +7,21 @@
 </head>
 <body>
     <h2>Sanitize HTML Input</h2>
-    <textarea id="htmlInput" rows="5" cols="50" placeholder="Enter HTML code here..."></textarea>
+    <textarea id="htmlInput" rows="5" cols="50" placeholder="Enter text here..."></textarea>
     <br>
     <button onclick="sanitizeHTML()">Sanitize</button>
     <h3>Sanitized Output:</h3>
     <div id="output"></div>
-    <p id="message"></p> 
+    <p id="message"></p> <!-- Mensaje de validación -->
 
     <script>
         function sanitizeHTML() {
             let input = document.getElementById("htmlInput").value;
             
-            // Expresión regular mejorada para detectar cualquier intento de apertura de <script>
-            let scriptRegex = /<script\b[^>]*>?/gi;
+            // Expresión regular para detectar cualquier etiqueta HTML (<cualquiercosa>)
+            let tagRegex = /<[^>]+>/g;
             
-            if (scriptRegex.test(input)) {
+            if (tagRegex.test(input)) {
                 document.getElementById("message").textContent = "Entrada rechazada: Se detectó código malicioso.";
                 document.getElementById("message").style.color = "red";
                 document.getElementById("output").textContent = "";
@@ -34,4 +34,5 @@
     </script>
 </body>
 </html>
+
 

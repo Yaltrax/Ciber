@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sanitize HTML</title>
+</head>
+<body>
+    <h2>Sanitize HTML Input</h2>
+    <textarea id="htmlInput" rows="5" cols="50" placeholder="Enter HTML code here..."></textarea>
+    <br>
+    <button onclick="sanitizeHTML()">Sanitize</button>
+    <h3>Sanitized Output:</h3>
+    <div id="output"></div>
+   
+    <script>
+        function sanitizeHTML() {
+            let input = document.getElementById("htmlInput").value;
+            let sanitized = input.replace(/<script[\s\S]*?<\/script>/gi, '');
+            document.getElementById("output").textContent = sanitized;
+        }
+    </script>
+</body>
+</html>

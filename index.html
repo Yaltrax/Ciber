@@ -3,33 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sanitizar HTML</title>
+    <title>Sanitize HTML</title>
 </head>
 <body>
-    <h2>Sanitizar HTML Input</h2>
+    <h2>Sanitize HTML Input</h2>
     <textarea id="htmlInput" rows="5" cols="50" placeholder="Enter HTML code here..."></textarea>
     <br>
     <button onclick="sanitizeHTML()">Sanitize</button>
-    <h3>Sanitizar Output:</h3>
+    <h3>Sanitized Output:</h3>
     <div id="output"></div>
-    <p id="message"></p> 
+    <p id="message"></p> <!-- Mensaje de validación -->
 
     <script>
         function sanitizeHTML() {
             let input = document.getElementById("htmlInput").value;
-            let scriptRegex = /<script\b[^>]*>[\s\S]*?<\/script>/gi;
+            
+            // Expresión regular mejorada para detectar cualquier intento de apertura de <script>
+            let scriptRegex = /<script\b[^>]*>?/gi;
             
             if (scriptRegex.test(input)) {
                 document.getElementById("message").textContent = "Entrada rechazada: Se detectó código malicioso.";
                 document.getElementById("message").style.color = "red";
+                document.getElementById("output").textContent = "";
             } else {
                 document.getElementById("message").textContent = "Entrada aceptada.";
                 document.getElementById("message").style.color = "green";
+                document.getElementById("output").textContent = input;
             }
-
-            let sanitized = input.replace(scriptRegex, '');
-            document.getElementById("output").textContent = sanitized;
         }
     </script>
 </body>
 </html>
+

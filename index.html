@@ -12,11 +12,22 @@
     <button onclick="sanitizeHTML()">Sanitize</button>
     <h3>Sanitized Output:</h3>
     <div id="output"></div>
-   
+    <p id="message"></p> <!-- Mensaje de validación -->
+
     <script>
         function sanitizeHTML() {
             let input = document.getElementById("htmlInput").value;
-            let sanitized = input.replace(/<script[\s\S]*?<\/script>/gi, '');
+            let scriptRegex = /<script\b[^>]*>[\s\S]*?<\/script>/gi;
+            
+            if (scriptRegex.test(input)) {
+                document.getElementById("message").textContent = "Entrada rechazada: Se detectó código malicioso.";
+                document.getElementById("message").style.color = "red";
+            } else {
+                document.getElementById("message").textContent = "Entrada aceptada.";
+                document.getElementById("message").style.color = "green";
+            }
+
+            let sanitized = input.replace(scriptRegex, '');
             document.getElementById("output").textContent = sanitized;
         }
     </script>
